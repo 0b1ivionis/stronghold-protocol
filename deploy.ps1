@@ -1,46 +1,62 @@
 param(
   [Parameter(Mandatory = $true)][string]$Token,
-  [string]$Owner = "xiaobai-miao1145",
+  [string]$Owner = "0b1ivionis",
   [string]$Repo = "stronghold-protocol"
 )
 
 $ErrorActionPreference = "Stop"
+try { [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false) } catch {}
 $py = "C:\Users\bai\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe"
 $api = "D:\projects\_build\gh_api.py"
 $env:GH_TOKEN = $Token
-$env:GIT_TERMINAL_PROMPT = "0"
 
-Write-Host "1/3 创建仓库 $Owner/$Repo ..."
-& $py -X utf8 $api POST /user/repos (@{
+function Invoke-Api([string]$method, [string]$path, $payload) {
+  if ($null -eq $payload) {
+    $out = & $py -X utf8 $api $method $path 2>&1
+  } else {
+    $tmp = Join-Path $env:TEMP ("ghpayload_" + [guid]::NewGuid().ToString("N") + ".json")
+    [IO.File]::WriteAllText($tmp, ($payload | ConvertTo-Json -Compress), [Text.UTF8Encoding]::new($false))
+    try { $out = & $py -X utf8 $api $method $path "@$tmp" 2>&1 } finally { Remove-Item $tmp -Force -ErrorAction SilentlyContinue }
+  }
+  $out | ForEach-Object { Write-Host "   $_" }
+  $statusLine = ($out | Where-Object { $_ -match "^STATUS (\d+)$" } | Select-Object -First 1)
+  if ($statusLine -match "^STATUS (\d+)$") { return [int]$Matches[1] }
+  return -1
+}
+
+Write-Host "1/3 create repo $Owner/$Repo"
+$status = Invoke-Api POST /user/repos @{
   name        = $Repo
-  description = "Arknights Stronghold Protocol (Nov 2026) — all 26 covenants and 143 operators, offline single-file cheat sheet"
+  description = "Arknights Stronghold Protocol (Nov 2026): 26 covenants, 143 operators, offline single-file cheat sheet"
   homepage    = "https://$Owner.github.io/$Repo/"
   private     = $false
   has_wiki    = $false
-} | ConvertTo-Json -Compress)
-
-Write-Host "2/3 推送 index.html ..."
-$credFile = Join-Path $env:TEMP ("ghcred_" + [guid]::NewGuid().ToString("N") + ".txt")
-"protocol=https`nhost=github.com`nusername=$Owner`npassword=$Token`n" |
-  git -c credential.helper="store --file=$credFile" credential approve
-try {
-  Push-Location $PSScriptRoot
-  git init -b main 2>$null | Out-Null
-  git add -A
-  git -c user.name="$Owner" -c user.email="$Owner@users.noreply.github.com" commit -m "Deploy Stronghold Protocol cheat sheet" 2>$null | Out-Null
-  git remote remove origin 2>$null
-  git remote add origin "https://github.com/$Owner/$Repo.git"
-  git -c credential.helper="store --file=$credFile" push -u origin main
-} finally {
-  Pop-Location
-  Remove-Item $credFile -Force -ErrorAction SilentlyContinue
 }
+if ($status -ne 201 -and $status -ne 422) { throw "repo creation failed (status $status)" }
+if ($status -eq 422) { Write-Host "   repo already exists, continue" }
 
-Write-Host "3/3 开启 GitHub Pages ..."
-& $py -X utf8 $api POST "/repos/$Owner/$Repo/pages" '{"source":{"branch":"main","path":"/"}}'
+Write-Host "2/3 push files"
+Push-Location $PSScriptRoot
+try {
+  if (-not (Test-Path ".git")) { git init -b main | Out-Null }
+  git add -A
+  git -c user.name=$Owner -c user.email="$Owner@users.noreply.github.com" commit -m "Deploy Stronghold Protocol cheat sheet" 2>$null | Out-Null
+  $existing = git remote get-url origin 2>$null
+  if ($LASTEXITCODE -ne 0 -or -not $existing) {
+    git remote add origin "https://github.com/$Owner/$Repo.git"
+  }
+  $authUrl = "https://x-access-token:$Token@github.com/$Owner/$Repo.git"
+  git push $authUrl "HEAD:main" --force
+  if ($LASTEXITCODE -ne 0) { throw "push failed" }
+  git remote set-url origin "https://github.com/$Owner/$Repo.git"
+} finally { Pop-Location }
+
+Write-Host "3/3 enable GitHub Pages"
+$status = Invoke-Api POST "/repos/$Owner/$Repo/pages" @{ source = @{ branch = "main"; path = "/" } }
+if ($status -ne 201 -and $status -ne 409) { Write-Host "   pages API returned $status (may already be enabled)" }
 Start-Sleep -Seconds 3
-& $py -X utf8 $api GET "/repos/$Owner/$Repo/pages"
+Invoke-Api GET "/repos/$Owner/$Repo/pages" $null | Out-Null
 
 Write-Host ""
-Write-Host "完成。Pages 首次构建约需 30-60 秒：" -ForegroundColor Green
+Write-Host "Done. Pages build usually takes 30-60s:"
 Write-Host "  https://$Owner.github.io/$Repo/" -ForegroundColor Cyan
