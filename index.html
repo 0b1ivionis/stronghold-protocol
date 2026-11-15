@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stronghold Protocol — Covenants &amp; Operators | Arknights</title>
-<meta name="description" content="Arknights Stronghold Protocol (Nov 2026): all 26 covenants and 143 operators with traits, portraits, trigger filters and recommended 6-operator lineups.">
+<title>卫戍协议·规程 — 盟约 &amp; 干员技能 | 明日方舟</title>
+<meta name="description" content="明日方舟 2026 年 11 月「卫戍协议·规程」：26 个盟约与 143 名干员，含立绘、特质分档、触发时机筛选与推荐 6 人阵容。">
 <style>
   :root{
     --bg:#050c0e; --panel:#0c191c; --panel2:#0f2226; --line:#1b3337; --line2:#274a4f;
@@ -50,7 +50,7 @@
   h1 .thin{font-weight:300; color:#b9cbcd;}
   h1 .gold{color:var(--gold)}
   h1 .l2{display:block; font-size:.56em; margin-top:10px; letter-spacing:.05em}
-  .sub{color:var(--dim); font-size:15.5px; margin:0 0 22px}
+  .sub{color:var(--dim); font-size:15.5px; margin:0 0 30px}
   .stats{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px}
   .stat{
     display:flex; align-items:baseline; gap:8px; padding:8px 14px; border:1px solid var(--line);
@@ -422,10 +422,9 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="kicker">Arknights · Stronghold Protocol</div>
-    <h1>Stronghold Protocol<span class="gold l2">Covenants &amp; Operators</span></h1>
-    <p class="sub">Nov 2026 · Thanks Celebration Part.2 · Data from PRTS</p>
-    <div class="stats" id="stats"></div>
+    <div class="kicker">ARKNIGHTS · 卫戍协议</div>
+    <h1>规程 <span class="thin">/</span> <span class="gold">盟约 &amp; 干员技能</span></h1>
+    <p class="sub">2026 年 11 月「感谢庆典」Part.2 版本 · 数据源 PRTS</p>
   </div>
 </header>
 
@@ -1237,14 +1236,6 @@ function init(){
   $("#n-core").textContent = core.length;
   $("#n-extra").textContent = extra.length;
   $("#n-ops").textContent = DATA.operators.length;
-
-  const stats = $("#stats");
-  [[core.length, "核心盟约", "gold"], [extra.length, "附加盟约", ""],
-   [DATA.operators.length, "参战干员", "teal"], [DATA.covenants.length, "盟约总数", ""]].forEach(([n, label, cls]) => {
-    const s = el("div", "stat " + cls);
-    s.append(el("b", null, String(n)), el("span", null, label));
-    stats.append(s);
-  });
 
   $("#coreGrid").replaceChildren(...core.map(covCard));
   $("#extraGrid").replaceChildren(...extra.map(covCard));
