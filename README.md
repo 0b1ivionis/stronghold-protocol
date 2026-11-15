@@ -1,5 +1,7 @@
 # Stronghold Protocol — Covenants & Operators
 
+Live: **https://0b1ivionis.github.io/stronghold-protocol/**
+
 A single-file, offline cheat sheet for **Arknights: Stronghold Protocol** (November 2026, "Thanks Celebration" Part 2).
 
 Open `index.html` in any modern browser — no server, no network, no dependencies.
