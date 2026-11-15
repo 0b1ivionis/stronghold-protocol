@@ -16,6 +16,13 @@ const TIER_COLOR = {1:"#9fb0b0",2:"#e6eef0",3:"#25c39a",4:"#2eb6ff",5:"#ffc23d",
 const TIER_LABEL = {1:"Ⅰ",2:"Ⅱ",3:"Ⅲ",4:"Ⅳ",5:"Ⅴ",6:"Ⅵ"};
 const PAGE_SIZE = 60;
 
+/* 兼容旧单文件版的 #/op/<name> 与 #/cov/<name> 深链 */
+(function(){
+  const m = /^#\/(op|cov)\/(.+)$/.exec(location.hash);
+  if(!m) return;
+  location.replace((m[1] === "op" ? "op.html" : "cov.html") + "?name=" + m[2]);
+})();
+
 const PAGE = document.body.dataset.page;
 const QS = new URLSearchParams(location.search);
 
