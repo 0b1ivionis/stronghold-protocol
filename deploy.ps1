@@ -5,6 +5,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$PSNativeCommandUseErrorActionPreference = $false
 try { [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false) } catch {}
 $py = "C:\Users\bai\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe"
 $api = "D:\projects\_build\gh_api.py"
@@ -41,8 +42,8 @@ try {
   if (-not (Test-Path ".git")) { git init -b main | Out-Null }
   git add -A
   git -c user.name=$Owner -c user.email="$Owner@users.noreply.github.com" commit -m "Deploy Stronghold Protocol cheat sheet" 2>$null | Out-Null
-  $existing = git remote get-url origin 2>$null
-  if ($LASTEXITCODE -ne 0 -or -not $existing) {
+  $existing = git remote
+  if (-not ($existing -contains "origin")) {
     git remote add origin "https://github.com/$Owner/$Repo.git"
   }
   $authUrl = "https://x-access-token:$Token@github.com/$Owner/$Repo.git"
