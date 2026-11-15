@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>干员图鉴 · 卫戍协议·规程</title>
+<meta name="description" content="143 名干员分阶列表：盟约、普通/精锐特质，支持按盟约、触发时机、阶位筛选。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="ops">
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">ARKNIGHTS · 卫戍协议</div>
+    <h1><a class="home" href="index.html">规程 <span class="thin">/</span> <span class="gold">盟约 &amp; 干员技能</span></a></h1>
+    <p class="sub">2026 年 11 月「感谢庆典」Part.2 版本 · 数据源 PRTS</p>
+  </div>
+</header>
+
+<nav class="tabs"><div class="wrap" id="tabs">
+  <a class="tab" data-page="core" href="index.html">核心盟约 <span class="n" id="n-core"></span></a>
+  <a class="tab" data-page="extra" href="extra.html">附加盟约 <span class="n" id="n-extra"></span></a>
+  <a class="tab" data-page="ops" href="ops.html">干员图鉴 <span class="n" id="n-ops"></span></a>
+  <a class="tab" data-page="notes" href="notes.html">机制速记</a>
+</div></nav>
+
+<main>
+<section id="view-ops">
+    <div class="sec-head">
+      <h2>干员图鉴</h2>
+      <p>战斗技能沿用本体；下表「特质」是模式内独有的叠层能力。点任意干员行进入详情：立绘、普通 / 精锐分档、触发时机、推荐 6 人阵容、所属盟约效果一页看完（详情链接可直接分享）。点行内盟约标签进入盟约详情。</p>
+    </div>
+    <div class="toolbar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="搜索干员 / 盟约 / 特质…" autocomplete="off">
+      </label>
+      <select id="covSel"><option value="">全部盟约</option></select>
+      <select id="tagSel" title="按触发时机筛选"><option value="">全部时机</option></select>
+      <div class="tiers" id="tiers">
+        <button class="tbtn active" data-tier="">全部</button>
+        <button class="tbtn" data-tier="1">Ⅰ</button>
+        <button class="tbtn" data-tier="2">Ⅱ</button>
+        <button class="tbtn" data-tier="3">Ⅲ</button>
+        <button class="tbtn" data-tier="4">Ⅳ</button>
+        <button class="tbtn" data-tier="5">Ⅴ</button>
+        <button class="tbtn" data-tier="6">Ⅵ</button>
+      </div>
+      <button class="reset" id="reset" hidden>重置筛选</button>
+    </div>
+    <p class="count" id="count"></p>
+    <div class="oplist" id="oplist"></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>数据整理自 PRTS「卫戍协议·规程 / PRTS盟约记录」；干员立绘取自 PRTS 头像（WebP，静态资源本地加载）。</span>
+    <span>更新时间 2026-11-15 · 26 个盟约 · 143 名干员</span>
+  </div>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

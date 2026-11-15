@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>盟约详情 · 卫戍协议·规程</title>
+<meta name="description" content="卫戍协议·规程 盟约详情：效果全文、激活人数与按阶位分组的所属干员。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="cov">
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">ARKNIGHTS · 卫戍协议</div>
+    <h1><a class="home" href="index.html">规程 <span class="thin">/</span> <span class="gold">盟约 &amp; 干员技能</span></a></h1>
+    <p class="sub">2026 年 11 月「感谢庆典」Part.2 版本 · 数据源 PRTS</p>
+  </div>
+</header>
+
+<nav class="tabs"><div class="wrap" id="tabs">
+  <a class="tab" data-page="core" href="index.html">核心盟约 <span class="n" id="n-core"></span></a>
+  <a class="tab" data-page="extra" href="extra.html">附加盟约 <span class="n" id="n-extra"></span></a>
+  <a class="tab" data-page="ops" href="ops.html">干员图鉴 <span class="n" id="n-ops"></span></a>
+  <a class="tab" data-page="notes" href="notes.html">机制速记</a>
+</div></nav>
+
+<main>
+<section id="view-cov">
+    <div class="dbar">
+      <button class="back" id="cback" type="button">← 返回上一级</button>
+      <button class="dbtn" id="cfilter" type="button">在干员图鉴中筛选该盟约 →</button>
+    </div>
+    <div class="chead" id="chead"></div>
+    <div class="dcols">
+      <article class="dcard" id="ceffects"></article>
+      <article class="dcard dmeta" id="cinfo"></article>
+    </div>
+    <div class="dsec-head">
+      <h2>所属干员</h2>
+      <p>按阶位分组；点任意干员进入其详情页，返回回到本盟约。</p>
+    </div>
+    <div id="cmembers"></div>
+    <div class="dback2"><button class="back" id="cback2" type="button">← 返回上一级</button></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>数据整理自 PRTS「卫戍协议·规程 / PRTS盟约记录」；干员立绘取自 PRTS 头像（WebP，静态资源本地加载）。</span>
+    <span>更新时间 2026-11-15 · 26 个盟约 · 143 名干员</span>
+  </div>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

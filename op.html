@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>干员详情 · 卫戍协议·规程</title>
+<meta name="description" content="干员模式特质、普通/精锐分档、触发时机、推荐 6 人强化阵容与所属盟约效果。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="op">
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">ARKNIGHTS · 卫戍协议</div>
+    <h1><a class="home" href="index.html">规程 <span class="thin">/</span> <span class="gold">盟约 &amp; 干员技能</span></a></h1>
+    <p class="sub">2026 年 11 月「感谢庆典」Part.2 版本 · 数据源 PRTS</p>
+  </div>
+</header>
+
+<nav class="tabs"><div class="wrap" id="tabs">
+  <a class="tab" data-page="core" href="index.html">核心盟约 <span class="n" id="n-core"></span></a>
+  <a class="tab" data-page="extra" href="extra.html">附加盟约 <span class="n" id="n-extra"></span></a>
+  <a class="tab" data-page="ops" href="ops.html">干员图鉴 <span class="n" id="n-ops"></span></a>
+  <a class="tab" data-page="notes" href="notes.html">机制速记</a>
+</div></nav>
+
+<main>
+<section id="view-detail">
+    <div class="dbar">
+      <button class="back" id="dback" type="button">← 返回上一级</button>
+      <div class="dnav">
+        <button class="dbtn" id="dprev" type="button">‹ 上一名</button>
+        <span class="dpos" id="dpos"></span>
+        <button class="dbtn" id="dnext" type="button">下一名 ›</button>
+      </div>
+    </div>
+    <div class="dhead" id="dhead"></div>
+    <div class="dcols">
+      <article class="dcard" id="dtrait"></article>
+      <article class="dcard dmeta" id="dmeta"></article>
+    </div>
+    <div class="dsec-head">
+      <h2>推荐 6 人强化阵容</h2>
+      <p>以该干员为核心，从同一核心盟约的成员中凑满 6 名不同干员；点成员可直接跳转。</p>
+    </div>
+    <div class="lineup-wrap" id="dlineup"></div>
+    <div class="dsec-head">
+      <h2>盟约效果</h2>
+      <p>该干员所属的盟约会同时生效；点盟约卡查看完整详情，核心盟约在场 6 名不同干员时触发强化。</p>
+    </div>
+    <div class="grid" id="dcovs"></div>
+    <div class="dback2"><button class="back" id="dback2" type="button">← 返回上一级</button></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>数据整理自 PRTS「卫戍协议·规程 / PRTS盟约记录」；干员立绘取自 PRTS 头像（WebP，静态资源本地加载）。</span>
+    <span>更新时间 2026-11-15 · 26 个盟约 · 143 名干员</span>
+  </div>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
